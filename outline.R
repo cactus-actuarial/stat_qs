@@ -1,9 +1,9 @@
 library("e1071")
 
-# 1. Probability theory techniques
+### 1. Probability theory techniques
 
-# 1.1 Creating data samples
-# LO:   Create random sample of data using simple stratified approach.
+## 1.1 Creating data samples
+# LO:   Create random sample of data using simple and stratified approach.
 #       Retrieve a random sample from a data frame.
 #       Produce a random sample from normal, t, binomial and chi-squared distributions.
 
@@ -24,9 +24,9 @@ library("e1071")
     # distributions
     # rnorm etc.
 
-# 1.2 Probability of discrete and continuous distributions
-# LO:   Compute probabilities and covert probabilities to quantiles.
-#       Plot histogram.
+## 1.2 Probability of discrete and continuous distributions
+# LO:   Compute probabilities and convert probabilities to quantiles.
+#       Plot frequency charts and histograms.
     
 dnorm(0)
 pnorm(0)
@@ -38,7 +38,7 @@ rnorm(4)
     # dchisq, pchisq, qchisq, rchisq | Chi-Squared distribution
     # set.seed() for reproducibility
 
-# 1.3 Central tendency, variation and shape measures
+## 1.3 Central tendency, variation and shape measures
 # LO:   Compute central tendency, variation and shape measures for a sample of data.
 
 heights <- c(160, 170, 168, 172, 165, 180)
@@ -54,15 +54,15 @@ quantile(heights)
 skewness(heights)
 kurtosis(heights)    
 
-# 2 Statistical tests
+### 2 Statistical tests
 
-# 2.1 Confidence intervals
+## 2.1 Confidence intervals
 # LO:   Compute a confidence interval for a mean of a given sample of data.
     # forming a confidence interval for a mean
     x <- sample(1:1000, 50)
     t.test(x)
     
-# 2.2 Cental Limit Theorem
+## 2.2 Cental Limit Theorem
 # LO:   Demonstrate Central Limit Theorem on an example.
     population <- runif(10^6)
     
@@ -71,9 +71,9 @@ kurtosis(heights)
     hist(population, xlab = "Population")
     hist(sample_means, xlab = "Samples means")
     
-# 2.3 Hypothesis testing
-# LO:   Apply t-Test to test the mean of a sample and to compare two means
-#       Apply Shapiro test to check for normality of a data.
+## 2.3 Hypothesis testing
+# LO:   Apply t-Test to test the mean of a sample and to compare two means.
+#       Apply Shapiro test to check normality of data.
     
     x <- rnorm(100)
     
@@ -87,21 +87,23 @@ kurtosis(heights)
     y <- rnorm(200)
     t.test(x, y)
     
-# 2.4 Comparing more means (one-way ANOVA)
-# LO:   ???
+## 2.4 Comparing more means (one-way ANOVA)
+# LO:   Analyze if the groups have significantly different means.
     
-# 3. Regression
+oneway.test(x ~ f)
     
-# 3.1 Covariance and correlation
+### 3. Regression
+    
+## 3.1 Covariance and correlation
 # LO:   Compute correlation and covariance of two datasets.
-#       Plot scatterplot.
+#       Plot scatterplot of paired observations.
     
 cor(x, y)
 cov(x, y)
 
-# 3.2 Linear regression
+## 3.2 Linear regression
 # LO:   Compute a linear regression model.
-#       Explain regression statistics.
+#       Explain obtained regression statistics.
 
     # simple linear regression
     y <- rnorm(100, 10, 20)
@@ -116,16 +118,17 @@ cov(x, y)
     # regression statistics
     summary(m_s)
     
-# 3.3 Evaluate regression model
+## 3.3 Evaluate regression model
 # LO:   Predict values based on a linear model.
+#       Evaluate correctness of predicted values.
 
     
-# 3.4 Logistic regression
+## 3.4 Logistic regression
 # LO:   Compute logistic regression model.
 
-# 4 Tips&tricks
+### 4 Interview tricks
     
-# 4.1 Sneak peak into the data
+## 4.1 Sneak peak into the data
 # LO:   Display few rows a data frame.
 #       Compute summary of a data frame.
     
@@ -142,7 +145,7 @@ cov(x, y)
     mode(x)
     str(x)
     
-# 4.2 Visualizing data
+## 4.2 Visualizing data
 # LO:   Visualize data using various plot types.
     
     # plot one variable
@@ -169,7 +172,7 @@ cov(x, y)
     plot(y ~ x)
     abline(m)
     
-# 4.3 Missing data
+## 4.3 Missing data
 # LO:   Compute statistics omitting missing data.
     
     name <- c("Anna", "Ben", NA)
@@ -183,34 +186,68 @@ cov(x, y)
     na.omit(dt)
     mean(age, na.rm = TRUE)
 
-# 4.4 Putting it all together
+## 4.4 Putting it all together
 # LO:   Combine various statistical techniques to 
-    
-    # create a data sample of size 100 of normal distribution with mean = 170 and standard devation = 5
-    sample_1 <- rnorm(100, 170, 5)
-    
-    # create a data sample of size 100 of normal distribution with mean = 160 and standard devation = 8
-    sample_2 <- rnorm(100, 160, 8)
-    
-    # calculate mean, variance and quantiles of both data sets
-    m_1 <- mean(sample_1)
-    m_2 <- mean(sample_2)
-    var_1 <- var(sample_1)
-    var_2 <- var(sample_2)
-    #...
 
-    
-    # draw histograms 
-    hist(sample_1)
-    hist(sample_2)    
+students <- as.data.frame(matrix(nrow = 1000, ncol = 4))
+colnames(students) <- c("rand", "group", "height", "age")
+students$height <- round(rnorm(1000, 170, 5))
+students$age <- round(rnorm(1000, 13, 3))
 
-    # check if normal
-        
-    # test if the two samples are even
+# final exercise
     
-    # compute linear regression model
+# context:
+# Let's combine together various statistical concepts that you have just refreshed. 
+# The "students" dataset has been preloaded for this exercise and it contains students' age and height.
+# Your task will be to analyze this dataset in preperation for your interview.
+# Remember that you can divide data into random groups using several methods.
+# For example you can use following method. Assume we've got 4 people:
+# c("Anna", "Barbara", "Charlie", "David")
+# Let's compute random number from range [1:4] and assign them to each person.
+# sample(1:4)
+# Even numbers will form the first group and odd numbers the second.
+
+
+
+# instructions:
+# * Check 6 first rows of "students" dataframe and compute quantiles and standard deviation of "age" variable.
+# * Perform shapiro test to check normality of "height" variable and draw its histogram.
+# * Divide all students into 3 random groups and check if means are significantly different basing on ANOVA.
+# * Compute linear regression model (height explained by age) 
+
+
+    # Look at few first rows of the "students" dataframe 
+    head(students)
+
+    # Calculate qunatiles and standard deviation of "age" variable
+    quantile(students$age)
+    sd(students$age)
     
-    # predict value for a person ...
+    # Check if height of students follows normal distribution using shapiro test
+    shapiro.test(group$height)    
     
+    # Draw a histogram of height of students
+    hist(students$height)
     
+    # Divide all students into two groups. 
+    # Firstly assign random number from range 1:1000 to variable "rand"
+    set.seed(1)
+    students$rand <- sample(1:1000)
+    students$group <- (students$rand %% 3)
+    
+    # Draw boxplot of age split by groups
+    boxplot(age ~ group, data = students)
+    
+    # Check if means are significantly different basing on one way ANOVA
+    oneway.test(age ~ group, data = students)
+    
+    # Compute linear regression model explaining height by age
+    m <- lm(height ~ age, data = students[1:(nrow(students)-1), ])
+    
+    # Draw scatterplot height against age
+    plot(height ~ age, data = students[1:(nrow(students)-1), ])
+    abline(m)
+    
+    # predict height of the last student
+    predict(m, students[nrow(students),])
     
