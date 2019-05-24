@@ -198,8 +198,6 @@ students <- as.data.frame(round(mvrnorm(n = 1000, mu = c(170, 15), Sigma = sigma
 colnames(students) <- c("height", "age")
 students$rand <- NULL
 students$group <- NULL
-summary(students)
-plot(height ~ age, data = students)
 
 # final exercise
     
@@ -231,30 +229,32 @@ plot(height ~ age, data = students)
     sd(students$age)
     
     # Check if height of students follows normal distribution using shapiro test
-    shapiro.test(group$height)    
+    shapiro.test(students$height)    
     
-    # Draw a histogram of height of students
+    # Draw a histogram of "height" variable
     hist(students$height)
     
-    # Divide all students into two groups. 
-    # Firstly assign random number from range 1:1000 to variable "rand"
+    # Divide all students into three groups. 
+    # Set seed equal 1 to ensure reproducibility
     set.seed(1)
+    # Assign random number from range 1:1000 to variable "rand" in "students" dataframe
     students$rand <- sample(1:1000)
-    students$group <- (students$rand %% 3)
+    # Assign the remainder of the division by 3 plus 1 as "group"
+    students$group <- (students$rand %% 3) + 1
     
     # Draw boxplot of age split by groups
     boxplot(age ~ group, data = students)
     
-    # Check if means are significantly different basing on one way ANOVA
+    # Check if the means of groups are significantly different basing on one way ANOVA
     oneway.test(age ~ group, data = students)
     
-    # Compute linear regression model explaining height by age
-    m <- lm(height ~ age, data = students[1:(nrow(students)-1), ])
-    
-    # Draw scatterplot height against age
-    plot(height ~ age, data = students[1:(nrow(students)-1), ])
+    # Compute linear regression model explaining height by age based on groups 1 and 2
+    m <- lm(height ~ age, data = subset(students, group < 3))
+
+    # Draw scatterplot presenting height against age for groups 1 and 2 and add linear model's function
+    plot(height ~ age, data = subset(students, group < 3))
     abline(m)
-    
-    # predict height of the last student
-    predict(m, students[nrow(students),])
+        
+    # Predict height of the students in group 3
+    predict(m, data = subset(students, group == 3))
     
