@@ -1,4 +1,5 @@
 library("e1071")
+library("MASS")
 
 ### 1. Probability theory techniques
 
@@ -189,31 +190,37 @@ cov(x, y)
 ## 4.4 Putting it all together
 # LO:   Combine various statistical techniques to 
 
-students <- as.data.frame(matrix(nrow = 1000, ncol = 4))
-colnames(students) <- c("rand", "group", "height", "age")
-students$height <- round(rnorm(1000, 170, 5))
-students$age <- round(rnorm(1000, 13, 3))
+# pre-loaded data for the exercise
+    
+set.seed(1)
+sigma = matrix(c(25, 4, 4, 1), nrow = 2)
+students <- as.data.frame(round(mvrnorm(n = 1000, mu = c(170, 15), Sigma = sigma)))
+colnames(students) <- c("height", "age")
+students$rand <- NULL
+students$group <- NULL
+summary(students)
+plot(height ~ age, data = students)
 
 # final exercise
     
 # context:
-# Let's combine together various statistical concepts that you have just refreshed. 
+# Let's combine together various statistical concepts which we have refreshed during the course. 
 # The "students" dataset has been preloaded for this exercise and it contains students' age and height.
 # Your task will be to analyze this dataset in preperation for your interview.
-# Remember that you can divide data into random groups using several methods.
-# For example you can use following method. Assume we've got 4 people:
+# Remember that you can divide data into random groups using various methods.
+# In this exercise, please purse the method presented in the following example. Assume we've got 4 people:
 # c("Anna", "Barbara", "Charlie", "David")
-# Let's compute random number from range [1:4] and assign them to each person.
+# Let's compute random numbers from range [1:4] and assign them to each person.
 # sample(1:4)
-# Even numbers will form the first group and odd numbers the second.
-
+# People with even numbers will form the first group and people with odd numbers the second.
 
 
 # instructions:
-# * Check 6 first rows of "students" dataframe and compute quantiles and standard deviation of "age" variable.
+# * Have a look at 6 first rows of "students" dataframe and compute quantiles and standard deviation of "age" variable.
 # * Perform shapiro test to check normality of "height" variable and draw its histogram.
-# * Divide all students into 3 random groups and check if means are significantly different basing on ANOVA.
-# * Compute linear regression model (height explained by age) 
+# * Divide all students into 3 random groups, draw boxplot presenting age splits by groups
+#   and check if the means in groups are significantly different from each other using ANOVA.
+# * Compute linear regression model (height explained by age) based on groups 1 and 2 and predict height of students in group 3.
 
 
     # Look at few first rows of the "students" dataframe 
