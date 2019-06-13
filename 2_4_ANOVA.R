@@ -68,8 +68,8 @@ oneway.test(lifespan ~ race, data = creatures, subset = which(creatures$race != 
 # Robust ANOVA (Kruskal-Wallis test)
 # sea cruise, weak / strong stomach
 
-rating_weak   <- c(sapply(sapply(rpois(sample_size * 7 / 16, 2), max, 1), min, 10), floor(runif(sample_size * 9 / 16, min = 1, max = 4)))
-rating_strong <- c(sapply(sapply(rpois(sample_size * 7 / 16, 9), max, 1), min, 10), floor(runif(sample_size * 9 / 16, min = 8, max = 11)))
+rating_weak   <- c(sapply(sapply(rpois(sample_size * 8 / 16, 2), max, 1), min, 10), floor(runif(sample_size * 8 / 16, min = 1, max = 4)))
+rating_strong <- c(sapply(sapply(rpois(sample_size * 8 / 16, 9), max, 1), min, 10), floor(runif(sample_size * 8 / 16, min = 8, max = 11)))
 
 rating <- c(rating_weak, rating_strong)
 stomach <- c(rep("weak", sample_size), rep("strong", sample_size))
