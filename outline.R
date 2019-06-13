@@ -258,3 +258,7 @@ students$group <- NULL
     # Predict height of the students in group 3
     predict(m, data = subset(students, group == 3))
     
+    
+### 2.4 ANOVA - screencast
+# 
+# 
